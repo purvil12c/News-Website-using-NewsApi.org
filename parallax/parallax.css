@@ -1,0 +1,46 @@
+html{
+    overflow: hidden;
+}
+
+body{
+    height: 100vh;
+    overflow-y:auto;
+    overflow-x:hidden;
+    margin: 0;
+    
+    perspective: 1px;
+    
+}
+
+img{
+    width: 100%;
+    overflow: hidden;
+    opacity: 1;
+    animation: opacity_animation 3s;
+}
+.parallax-group{
+    transform-style: preserve-3d;
+}
+.back{
+    transform: translateZ(-0.5px) scale(1.5);
+    position: relative;
+    top:calc(((100vh - 100vw)/4)* -2);
+    
+}
+.front{
+    background-color: rgba(0,0,0,0.5);
+    color:aquamarine;
+    padding:1em 1em;
+    position: relative;
+    z-index: 1;
+    height:200px; 
+}
+
+@keyframes opacity_animation{
+    0% {
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}

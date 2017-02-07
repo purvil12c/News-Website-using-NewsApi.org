@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link type="text/css" href="parallax.css" rel="stylesheet"> 
+    <script>
+        function parallax_news(){
+            
+            var xmlhttp=new XMLHttpRequest();
+            var url="https://newsapi.org/v1/articles?source=ign&sortBy=top&apiKey=e2af48d5dee4436898081c3c392d4bf5";
+            xmlhttp.open("GET", url, true);
+            xmlhttp.onreadystatechange=function(){
+                
+                if(xmlhttp.readyState==4 && xmlhttp.status==200){
+                    var raw_data=xmlhttp.responseText;
+                    var JSONObject1=JSON.parse(raw_data);
+                    document.getElementById("back").src=JSONObject1.articles[0].urlToImage;
+                    document.getElementById("front_h1").innerHTML=JSONObject1.articles[0].title;
+                   
+                   document.getElementById("front_link").href=JSONObject1.articles[0].url;
+                    document.getElementById("front_desc").innerHTML=JSONObject1.articles[0].description;
+                    
+                    
+                    
+                    for(var i=1; i<JSONObject1.articles.length;i++){
+                        var clone=document.getElementById("parallax-group").cloneNode(true);
+                        
+                        clone.childNodes[1].src=JSONObject1.articles[i].urlToImage;
+                        clone.childNodes[3].childNodes[1].href=JSONObject1.articles[i].url;
+                        clone.childNodes[3].childNodes[1].childNodes[1].innerHTML=JSONObject1.articles[i].title;
+                       
+                         clone.childNodes[3].childNodes[3].innerHTML=JSONObject1.articles[i].description;
+                        
+                        document.getElementById("parallax-group").parentNode.appendChild(clone);
+                    }
+                }
+            };
+             xmlhttp.send();
+        }
+           
+    </script>
+    
+</head>
+<body onload="parallax_news();">
+    <div class="parallax-group" id="parallax-group">
+        <img id="back" class="back">
+        <div id="front" class="front">
+            <a href="#" id="front_link" target="_blank">
+                <h1 id="front_h1" style="color:white;font-family:'Bebas','helvetica','times';letter-spacing: 2px;">TITLE</h1>
+            </a>
+            <h3 id="front_desc" style="font-family:'Raleway','times';">DESC</h3>
+        </div>
+    </div>
+    
+</body>
+</html>

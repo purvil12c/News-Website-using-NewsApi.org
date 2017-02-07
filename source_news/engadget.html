@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+<link rel="stylesheet" type="text/css" href="../stylingcss.css">
+         <script>
+            var news_displayed_count=0;
+            function loadLatestNews(){
+            var xmlhttp = new XMLHttpRequest();
+            var url = "https://newsapi.org/v1/articles?source=engadget&sortBy=top&apiKey=e2af48d5dee4436898081c3c392d4bf5";
+            xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+               
+                var raw_data=xmlhttp.responseText;
+                var JSONObject1=JSON.parse(raw_data);
+                document.getElementById("news_img").src=JSONObject1.articles[0].urlToImage;
+                document.getElementById("title").innerHTML=JSONObject1.articles[0].title;
+                document.getElementById("description").innerHTML=JSONObject1.articles[0].description;
+                news_displayed_count=JSONObject1.articles.length;
+                for(var i=1;i<JSONObject1.articles.length;i++){
+                var clone=document.getElementById("news_div").cloneNode(true);
+                (clone.childNodes[1]).childNodes[1].src=JSONObject1.articles[i].urlToImage;
+                
+                (clone.childNodes[3]).childNodes[1].innerHTML = JSONObject1.articles[i].title;
+                (clone.childNodes[3]).childNodes[3].innerHTML = JSONObject1.articles[i].description;
+           document.getElementById("news_div").parentNode.appendChild(clone);
+                }
+            
+               /*  var clone=document.getElementById("news_div").cloneNode(true);
+               
+                
+                (clone.childNodes[1]).childNodes[1].src=JSONObject1.articles[2].urlToImage;
+                
+                (clone.childNodes[3]).childNodes[1].innerHTML = JSONObject1.articles[2].title;
+                (clone.childNodes[3]).childNodes[3].innerHTML = JSONObject1.articles[2].description;
+           document.getElementById("news_div").parentNode.appendChild(clone);*/
+                }
+                
+            };
+            
+
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
+            
+            }
+            
+            
+            
+        </script>
+    </head>
+<body onload="loadLatestNews();">
+
+
+<div id="news_div" style="height:80%;width:100%;">
+                <div style="height:260px;width:25%;float:left;margin-left:30px;">
+                <img src="" width=300px height=250px id="news_img">
+                </div>  
+                <div style="height:260px;width:1000px;float:right;">
+                <h1 id="title">
+                </h1>
+                <p id="description">LOADING...</p>
+                
+                </div>
+</div>
+</body>
+</html>    

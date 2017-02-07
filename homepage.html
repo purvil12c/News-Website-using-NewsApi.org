@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+	
+		<title>Welcome to NEWS-X</title>
+    
+		<link rel="stylesheet" type="text/css" href="stylingcss.css">
+        
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		
+		<script>
+			var num = 60;      
+			$(window).bind('scroll', function () 
+			{
+				if ($(window).scrollTop() > num)
+				{
+					$('nav').addClass('fixed');
+				} 
+				else 
+				{
+					$('nav').removeClass('fixed');
+				}	
+			}
+			);
+			
+            function startTime() 
+			{
+				var today = new Date();
+				var h = today.getHours();
+				var m = today.getMinutes();
+				var s = today.getSeconds();
+							
+				var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+				
+				var n = weekday[today.getDay()];
+				m = checkTime(m);
+				s = checkTime(s);
+				document.getElementById('date').innerHTML = "IST "+" : "+ h + " : " + m + " : " + s + "<br>" + n ;
+
+				var t = setTimeout(startTime, 500);
+
+			}
+			function checkTime(i) 
+			{
+				if (i < 10) 
+				{	
+					i = "0" + i;  // add zero in front of numbers < 10
+				}
+				return i;
+			}
+            function source_news(id)
+			{
+                var iframe_element=document.getElementById("iframe1");
+                iframe_element.src="source_news/"+id+".html";  
+            }
+   
+		</script>
+    </head>
+    <body onload="startTime();" style="background-image: url(background.jpg);background-repeat: repeat;">
+        
+        <div style="height:100%;width:100%;">
+            <div style="height:50%;width:100%;">
+			
+                <div style="height:100%;width:10%;float:left;background-color:#343434;color:floralwhite;">
+                    <b><p id="date"></p></b>
+                </div>
+				
+                <div style="height:100%;width:90%;float:left;background-color:#343434;">
+                        <img id="logo"></img> 
+                </div>
+            
+            </div>
+            <div style="height:20%;width:100%;">
+                <nav>
+					<ul id="navul">
+						<li id="navli"><a onclick="document.getElementById('iframe1').src='parallax/latest.html';">Latest News</a></li>
+						<li id="navli"><a onclick="document.getElementById('iframe1').src='parallax/business.html';">Buisness</a></li>
+						<li id="navli"><a onclick="document.getElementById('iframe1').src='parallax/entertainment.html';">Entertainment</a></li>
+						<li id="navli"><a onclick="document.getElementById('iframe1').src='parallax/gaming.html';">Gaming</a></li>
+						<li id="navli"><a onclick="document.getElementById('iframe1').src='parallax/technology.html';">Technology</a></li>
+						<li id="navli"><a onclick="document.getElementById('iframe1').src='parallax/general.html';">General</a></li>
+						<li id="navli"><a onclick="document.getElementById('iframe1').src='parallax/sports.html';">Sports</a></li>
+						<li id="navli" class="dropdown"><a class="dropbtn">By Sources</a>
+							 <div class="dropdown-content">
+							  <a id="abc" href="#"><img id="abc" src="news_sources_images/abc.jpeg" onclick="source_news(this.id)"></a>
+							  <a id="ars_technica" href="#"><img id="ars_technica" onclick="source_news(this.id);" src="news_sources_images/ars_technica.jpg"></a>
+							  <a id="cnn" href="#" onclick="source_news(id);"><img src="news_sources_images/cnn.jpg" id="cnn" onclick="source_news(this.id);"></a>
+                              <a id="engadget"  href="#" onClick="source_news(id);"><img src="news_sources_images/engadget.jpg" id="engadget" onclick="source_news(this.id);"></a>
+							</div>
+						</li>
+					</ul>
+				</nav>
+            </div>
+			
+			<iframe id="iframe1" src="parallax/latest.html" style=" height: 100vh;width:100%;display: block;margin:0px;" ></iframe>          
+
+        </div>
+        <div style="height: 2%;width:100%;text-align:center;">
+			<table style = "width:100%;border:3px solid white;border-collapse:collapse;">
+				<tr style = "background-color:#FFFFFF;color:#000000;font-family: 'Minimal';font-size: 25px;">
+					<td>Powered By - <a href = "https://newsapi.org/" target = "_blank">News API</a></td>
+					<td>&copy; WD INNOVATIVE ASSIGNMENT</td>
+					<td>	
+						<ul id="footerul">
+							<li id="footer-li"><a href = "https://www.facebook.com/TimesofIndia" target = "_balnk"><img src = "./social/facebook.png" height = 20px width = 20px></a></li>
+							<li id="footer-li"><a href = "https://twitter.com/timesofindia" target = "_blank"><img src = "./social/twitter.jpg" height = 20px width = 20px></a></li>
+							<li id="footer-li"><a href = "https://plus.google.com/117150671992820587865?prsrc=3" target = "_balnk"><img src = "./social/GooglePlus.png" height = 20px width = 20px></a></li>
+							<li id="footer-li"><a href = "http://timesofindia.indiatimes.com/rss.cms" target = "_balnk"><img src = "./social/rss.png" height = 20px width = 20px></a></li>
+							<li id="footer-li"><a href = "https://www.youtube.com/user/TimesOfIndiaChannel" target = "_balnk"><img src = "./social/youtube.png" height = 20px width = 20px></a></li>
+						</ul>
+					</td>
+				</tr>
+			</table>	
+        </div>
+    </body>
+</html>
